@@ -49,29 +49,30 @@ function TaskList() {
     flex: 1,
     padding: "12px",
     border: "none",
-    backgroundColor: activeTab === tab ? "#fff" : "transparent",
-    color: activeTab === tab ? "#333" : "#888",
+    backgroundColor: activeTab === tab ? "var(--card)" : "transparent",
+    color: activeTab === tab ? "var(--foreground)" : "var(--muted-foreground)",
     fontWeight: activeTab === tab ? "600" : "400",
     fontSize: "15px",
     cursor: "pointer",
-    borderRadius: "8px",
+    borderRadius: "var(--radius)",
     transition: "all 0.2s",
-    boxShadow: activeTab === tab ? "0 1px 3px rgba(0,0,0,0.1)" : "none"
+    boxShadow: activeTab === tab ? "var(--shadow-sm)" : "none"
   })
 
   return (
     <div style={{ marginTop: "30px" }}>
-      <h2 style={{ marginBottom: "15px" }}>Meine Tasks ({tasks.length})</h2>
+      <h2 style={{ marginBottom: "15px", color: "var(--foreground)" }}>Meine Tasks ({tasks.length})</h2>
       
       {error && (
         <div style={{
           padding: "15px",
-          backgroundColor: "#ffebee",
-          color: "#c62828",
-          borderRadius: "5px",
-          marginBottom: "15px"
+          backgroundColor: "var(--destructive)",
+          color: "var(--destructive-foreground)",
+          borderRadius: "var(--radius)",
+          marginBottom: "15px",
+          boxShadow: "var(--shadow-sm)"
         }}>
-          ❌ Fehler: {error}
+          ✗ Fehler: {error}
           <br />
           <small>Überprüfe die Browser-Konsole (F12) für Details.</small>
         </div>
@@ -81,15 +82,31 @@ function TaskList() {
       <div style={{
         display: "flex",
         gap: "4px",
-        backgroundColor: "#f0f0f0",
+        backgroundColor: "var(--muted)",
         padding: "4px",
-        borderRadius: "10px",
+        borderRadius: "var(--radius)",
         marginBottom: "15px"
       }}>
-        <button style={tabStyle("offen")} onClick={() => setActiveTab("offen")}>
+        <button 
+          style={tabStyle("offen")} 
+          onClick={() => setActiveTab("offen")}
+          onMouseOver={(e) => {
+            if (activeTab !== "offen") {
+              e.currentTarget.style.backgroundColor = "var(--accent)";
+            }
+          }}
+          onMouseOut={(e) => {
+            if (activeTab !== "offen") {
+              e.currentTarget.style.backgroundColor = "transparent";
+            }
+          }}
+        >
           Offen ({openTasks.length})
         </button>
-        <button style={tabStyle("archiv")} onClick={() => setActiveTab("archiv")}>
+        <button 
+          style={tabStyle("archiv")} 
+          onClick={() => setActiveTab("archiv")}
+        >
           Archiv ({archivedTasks.length})
         </button>
       </div>
@@ -101,7 +118,7 @@ function TaskList() {
         gap: "8px",
         marginBottom: "15px"
       }}>
-        <span style={{ color: "#888", fontSize: "14px" }}>Sortieren:</span>
+        <span style={{ color: "var(--muted-foreground)", fontSize: "14px" }}>Sortieren:</span>
         {[
           { key: "newest", label: "Neueste" },
           { key: "oldest", label: "Älteste" },
@@ -112,14 +129,27 @@ function TaskList() {
             onClick={() => setSortBy(key)}
             style={{
               padding: "6px 14px",
-              border: sortBy === key ? "1px solid #1976d2" : "1px solid #ddd",
+              border: sortBy === key ? "1px solid var(--primary)" : "1px solid var(--border)",
               borderRadius: "20px",
-              backgroundColor: sortBy === key ? "#e3f2fd" : "#fff",
-              color: sortBy === key ? "#1976d2" : "#666",
+              backgroundColor: sortBy === key ? "var(--accent)" : "var(--card)",
+              color: sortBy === key ? "var(--accent-foreground)" : "var(--muted-foreground)",
               fontSize: "13px",
               cursor: "pointer",
               fontWeight: sortBy === key ? "600" : "400",
-              transition: "all 0.2s"
+              transition: "all 0.2s",
+              boxShadow: sortBy === key ? "var(--shadow-sm)" : "none"
+            }}
+            onMouseOver={(e) => {
+              if (sortBy !== key) {
+                e.currentTarget.style.backgroundColor = "var(--accent)";
+                e.currentTarget.style.color = "var(--accent-foreground)";
+              }
+            }}
+            onMouseOut={(e) => {
+              if (sortBy !== key) {
+                e.currentTarget.style.backgroundColor = "var(--card)";
+                e.currentTarget.style.color = "var(--muted-foreground)";
+              }
             }}
           >
             {label}
@@ -128,7 +158,7 @@ function TaskList() {
       </div>
       
       {currentTasks.length === 0 ? (
-        <p style={{ color: "#999", fontStyle: "italic", textAlign: "center", padding: "30px 0" }}>
+        <p style={{ color: "var(--muted-foreground)", fontStyle: "italic", textAlign: "center", padding: "30px 0" }}>
           {activeTab === "offen"
             ? "Keine offenen Tasks. Füge oben einen neuen hinzu!"
             : "Noch keine erledigten Tasks."}

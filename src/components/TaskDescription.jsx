@@ -52,22 +52,23 @@ function TaskDescription({ task, reload }) {
               marginBottom: "8px",
               paddingLeft: indent.length * 10 + "px",
               padding: "8px 12px",
-              backgroundColor: isChecked ? "#e8f5e9" : "#f5f5f5",
-              borderRadius: "6px",
+              backgroundColor: isChecked ? "var(--accent)" : "var(--muted)",
+              borderRadius: "var(--radius)",
               cursor: task.completed ? "not-allowed" : "pointer",
-              transition: "all 0.2s"
+              transition: "all 0.2s",
+              border: "1px solid var(--border)"
             }}
           >
             <span style={{
               width: "22px",
               height: "22px",
-              border: isChecked ? "none" : "2px solid #bbb",
+              border: isChecked ? "none" : "2px solid var(--border)",
               borderRadius: "4px",
-              backgroundColor: isChecked ? "#4CAF50" : "white",
+              backgroundColor: isChecked ? "var(--success)" : "var(--background)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              color: "white",
+              color: "var(--primary-foreground)",
               fontSize: "14px",
               fontWeight: "bold",
               flexShrink: 0
@@ -76,8 +77,9 @@ function TaskDescription({ task, reload }) {
             </span>
             <span style={{
               textDecoration: isChecked ? "line-through" : "none",
-              color: isChecked ? "#888" : "#333",
-              flex: 1
+              color: isChecked ? "var(--accent-foreground)" : "var(--foreground)",
+              flex: 1,
+              fontWeight: isChecked ? "500" : "400"
             }}>
               {text}
             </span>
@@ -89,7 +91,7 @@ function TaskDescription({ task, reload }) {
       if (!line.trim()) return null
       
       return (
-        <div key={index} style={{ marginBottom: "6px", color: "#666" }}>
+        <div key={index} style={{ marginBottom: "6px", color: "var(--muted-foreground)" }}>
           {line}
         </div>
       )

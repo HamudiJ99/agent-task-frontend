@@ -57,20 +57,21 @@ function EditTaskDialog({ task, onClose, onSaved }) {
       <div
         onClick={(e) => e.stopPropagation()}
         style={{
-          backgroundColor: "#fff",
-          borderRadius: "12px",
+          backgroundColor: "var(--popover)",
+          borderRadius: "var(--radius)",
           padding: "25px",
           width: "100%",
           maxWidth: "500px",
-          boxShadow: "0 10px 40px rgba(0,0,0,0.3)"
+          boxShadow: "var(--shadow-lg)",
+          border: "1px solid var(--border)"
         }}
       >
-        <h2 style={{ margin: "0 0 20px 0", color: "#333" }}>
+        <h2 style={{ margin: "0 0 20px 0", color: "var(--popover-foreground)" }}>
           Task bearbeiten
         </h2>
 
         <form onSubmit={handleSave}>
-          <label style={{ display: "block", marginBottom: "5px", fontWeight: "500", color: "#555" }}>
+          <label style={{ display: "block", marginBottom: "5px", fontWeight: "500", color: "var(--muted-foreground)" }}>
             Titel
           </label>
           <input
@@ -80,14 +81,16 @@ function EditTaskDialog({ task, onClose, onSaved }) {
               width: "100%",
               padding: "12px",
               marginBottom: "15px",
-              border: "1px solid #ddd",
-              borderRadius: "5px",
+              border: "1px solid var(--border)",
+              borderRadius: "var(--radius)",
               fontSize: "16px",
-              boxSizing: "border-box"
+              boxSizing: "border-box",
+              backgroundColor: "var(--background)",
+              color: "var(--foreground)"
             }}
           />
 
-          <label style={{ display: "block", marginBottom: "5px", fontWeight: "500", color: "#555" }}>
+          <label style={{ display: "block", marginBottom: "5px", fontWeight: "500", color: "var(--muted-foreground)" }}>
             Beschreibung
           </label>
           <textarea
@@ -98,16 +101,18 @@ function EditTaskDialog({ task, onClose, onSaved }) {
               width: "100%",
               padding: "12px",
               marginBottom: "15px",
-              border: "1px solid #ddd",
-              borderRadius: "5px",
+              border: "1px solid var(--border)",
+              borderRadius: "var(--radius)",
               fontSize: "16px",
               fontFamily: "inherit",
               resize: "vertical",
-              boxSizing: "border-box"
+              boxSizing: "border-box",
+              backgroundColor: "var(--background)",
+              color: "var(--foreground)"
             }}
           />
 
-          <label style={{ display: "block", marginBottom: "5px", fontWeight: "500", color: "#555" }}>
+          <label style={{ display: "block", marginBottom: "5px", fontWeight: "500", color: "var(--muted-foreground)" }}>
             Deadline (optional)
           </label>
           <input
@@ -118,10 +123,12 @@ function EditTaskDialog({ task, onClose, onSaved }) {
               width: "100%",
               padding: "12px",
               marginBottom: "20px",
-              border: "1px solid #ddd",
-              borderRadius: "5px",
+              border: "1px solid var(--border)",
+              borderRadius: "var(--radius)",
               fontSize: "16px",
-              boxSizing: "border-box"
+              boxSizing: "border-box",
+              backgroundColor: "var(--background)",
+              color: "var(--foreground)"
             }}
           />
 
@@ -131,12 +138,20 @@ function EditTaskDialog({ task, onClose, onSaved }) {
               onClick={onClose}
               style={{
                 padding: "10px 24px",
-                backgroundColor: "#f5f5f5",
-                color: "#666",
-                border: "1px solid #ddd",
-                borderRadius: "5px",
+                backgroundColor: "var(--secondary)",
+                color: "var(--secondary-foreground)",
+                border: "1px solid var(--border)",
+                borderRadius: "var(--radius)",
                 fontSize: "15px",
-                cursor: "pointer"
+                cursor: "pointer",
+                boxShadow: "var(--shadow-sm)",
+                transition: "all 0.2s"
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.opacity = "0.75";
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.opacity = "1";
               }}
             >
               Abbrechen
@@ -146,14 +161,22 @@ function EditTaskDialog({ task, onClose, onSaved }) {
               disabled={saving}
               style={{
                 padding: "10px 24px",
-                backgroundColor: "#4CAF50",
-                color: "white",
+                backgroundColor: "var(--success)",
+                color: "var(--primary-foreground)",
                 border: "none",
-                borderRadius: "5px",
+                borderRadius: "var(--radius)",
                 fontSize: "15px",
                 fontWeight: "bold",
                 cursor: saving ? "not-allowed" : "pointer",
-                opacity: saving ? 0.7 : 1
+                opacity: saving ? 0.7 : 1,
+                boxShadow: "var(--shadow-md)",
+                transition: "all 0.2s"
+              }}
+              onMouseOver={(e) => {
+                if (!saving) e.currentTarget.style.opacity = "0.75";
+              }}
+              onMouseOut={(e) => {
+                if (!saving) e.currentTarget.style.opacity = "1";
               }}
             >
               {saving ? "Speichern..." : "Speichern"}

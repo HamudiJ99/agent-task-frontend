@@ -88,12 +88,12 @@ function TaskItem({ task, reload }) {
   return (
     <>
       <div style={{
-        border: "1px solid #ddd",
-        borderRadius: "8px",
+        border: "1px solid var(--border)",
+        borderRadius: "var(--radius)",
         padding: "15px",
         marginBottom: "12px",
-        backgroundColor: task.completed ? "#f9fdf9" : "#fff",
-        boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
+        backgroundColor: task.completed ? "var(--muted)" : "var(--card)",
+        boxShadow: "var(--shadow-sm)",
         transition: "all 0.2s",
         opacity: task.completed ? 0.85 : 1
       }}>
@@ -109,7 +109,7 @@ function TaskItem({ task, reload }) {
               cursor: "pointer",
               width: "18px",
               height: "18px",
-              accentColor: "#4CAF50"
+              accentColor: "var(--success)"
             }}
           />
 
@@ -118,7 +118,7 @@ function TaskItem({ task, reload }) {
             <h3 style={{
               margin: "0 0 8px 0",
               textDecoration: task.completed ? "line-through" : "none",
-              color: task.completed ? "#999" : "#333",
+              color: task.completed ? "var(--muted-foreground)" : "var(--card-foreground)",
               fontSize: "16px",
               wordBreak: "break-word"
             }}>
@@ -130,7 +130,7 @@ function TaskItem({ task, reload }) {
             )}
 
             <div style={{ display: "flex", gap: "12px", alignItems: "center", marginTop: "8px" }}>
-              <small style={{ color: "#aaa", fontSize: "12px" }}>
+              <small style={{ color: "var(--muted-foreground)", fontSize: "12px" }}>
                 {new Date(task.createdAt).toLocaleString("de-DE")}
               </small>
               
@@ -159,11 +159,11 @@ function TaskItem({ task, reload }) {
                 cursor: "pointer",
                 padding: "4px 8px",
                 fontSize: "22px",
-                color: "#888",
+                color: "var(--muted-foreground)",
                 borderRadius: "4px",
                 lineHeight: 1
               }}
-              onMouseOver={(e) => e.target.style.backgroundColor = "#f0f0f0"}
+              onMouseOver={(e) => e.target.style.backgroundColor = "var(--muted)"}
               onMouseOut={(e) => e.target.style.backgroundColor = "transparent"}
             >
               ⋮
@@ -174,10 +174,10 @@ function TaskItem({ task, reload }) {
                 position: "absolute",
                 right: 0,
                 top: "100%",
-                backgroundColor: "#fff",
-                border: "1px solid #e0e0e0",
-                borderRadius: "8px",
-                boxShadow: "0 4px 15px rgba(0,0,0,0.15)",
+                backgroundColor: "var(--popover)",
+                border: "1px solid var(--border)",
+                borderRadius: "var(--radius)",
+                boxShadow: "var(--shadow-lg)",
                 zIndex: 100,
                 minWidth: "180px",
                 overflow: "hidden"
@@ -194,10 +194,10 @@ function TaskItem({ task, reload }) {
                     backgroundColor: "transparent",
                     cursor: "pointer",
                     fontSize: "14px",
-                    color: "#333",
+                    color: "var(--popover-foreground)",
                     textAlign: "left"
                   }}
-                  onMouseOver={(e) => e.currentTarget.style.backgroundColor = "#f5f5f5"}
+                  onMouseOver={(e) => e.currentTarget.style.backgroundColor = "var(--muted)"}
                   onMouseOut={(e) => e.currentTarget.style.backgroundColor = "transparent"}
                 >
                   Bearbeiten
@@ -216,10 +216,10 @@ function TaskItem({ task, reload }) {
                       backgroundColor: "transparent",
                       cursor: "pointer",
                       fontSize: "14px",
-                      color: "#1976d2",
+                      color: "var(--primary)",
                       textAlign: "left"
                     }}
-                    onMouseOver={(e) => e.currentTarget.style.backgroundColor = "#f5f5f5"}
+                    onMouseOver={(e) => e.currentTarget.style.backgroundColor = "var(--muted)"}
                     onMouseOut={(e) => e.currentTarget.style.backgroundColor = "transparent"}
                   >
                     Wiederherstellen
@@ -237,17 +237,17 @@ function TaskItem({ task, reload }) {
                       backgroundColor: "transparent",
                       cursor: "pointer",
                       fontSize: "14px",
-                      color: "#ff9800",
+                      color: "var(--warning)",
                       textAlign: "left"
                     }}
-                    onMouseOver={(e) => e.currentTarget.style.backgroundColor = "#f5f5f5"}
+                    onMouseOver={(e) => e.currentTarget.style.backgroundColor = "var(--muted)"}
                     onMouseOut={(e) => e.currentTarget.style.backgroundColor = "transparent"}
                   >
                     Archivieren
                   </button>
                 )}
 
-                <div style={{ borderTop: "1px solid #eee" }} />
+                <div style={{ borderTop: "1px solid var(--border)" }} />
 
                 <button
                   onClick={handleDelete}
@@ -261,10 +261,10 @@ function TaskItem({ task, reload }) {
                     backgroundColor: "transparent",
                     cursor: "pointer",
                     fontSize: "14px",
-                    color: "#f44336",
+                    color: "var(--destructive)",
                     textAlign: "left"
                   }}
-                  onMouseOver={(e) => e.currentTarget.style.backgroundColor = "#fff5f5"}
+                  onMouseOver={(e) => e.currentTarget.style.backgroundColor = "var(--muted)"}
                   onMouseOut={(e) => e.currentTarget.style.backgroundColor = "transparent"}
                 >
                   Löschen

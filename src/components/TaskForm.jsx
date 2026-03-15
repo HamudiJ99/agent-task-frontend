@@ -69,12 +69,14 @@ function TaskForm() {
 
   return (
     <div style={{
-      backgroundColor: "#f5f5f5",
+      backgroundColor: "var(--card)",
       padding: "20px",
-      borderRadius: "8px",
-      marginBottom: "20px"
+      borderRadius: "var(--radius)",
+      marginBottom: "20px",
+      border: "1px solid var(--border)",
+      boxShadow: "var(--shadow-sm)"
     }}>
-      <h2 style={{ marginTop: 0 }}>Neuen Task hinzufügen</h2>
+      <h2 style={{ marginTop: 0, color: "var(--card-foreground)" }}>Neuen Task hinzufügen</h2><br />
       
       <form onSubmit={handleSubmit}>
         <input
@@ -85,10 +87,12 @@ function TaskForm() {
             width: "100%",
             padding: "12px",
             marginBottom: "10px",
-            border: "1px solid #ddd",
-            borderRadius: "5px",
+            border: "1px solid var(--border)",
+            borderRadius: "var(--radius)",
             fontSize: "16px",
-            boxSizing: "border-box"
+            boxSizing: "border-box",
+            backgroundColor: "var(--background)",
+            color: "var(--foreground)"
           }}
         />
 
@@ -101,18 +105,20 @@ function TaskForm() {
             width: "100%",
             padding: "12px",
             marginBottom: "10px",
-            border: "1px solid #ddd",
-            borderRadius: "5px",
+            border: "1px solid var(--border)",
+            borderRadius: "var(--radius)",
             fontSize: "16px",
             fontFamily: "inherit",
             resize: "vertical",
-            boxSizing: "border-box"
+            boxSizing: "border-box",
+            backgroundColor: "var(--background)",
+            color: "var(--foreground)"
           }}
         />
 
         {/* Deadline */}
         <div style={{ marginBottom: "10px" }}>
-          <label style={{ display: "block", marginBottom: "5px", fontSize: "14px", color: "#666" }}>
+          <label style={{ display: "block", marginBottom: "5px", fontSize: "14px", color: "var(--muted-foreground)" }}>
             Deadline (optional)
           </label>
           <input
@@ -122,10 +128,12 @@ function TaskForm() {
             style={{
               width: "100%",
               padding: "12px",
-              border: "1px solid #ddd",
-              borderRadius: "5px",
+              border: "1px solid var(--border)",
+              borderRadius: "var(--radius)",
               fontSize: "16px",
-              boxSizing: "border-box"
+              boxSizing: "border-box",
+              backgroundColor: "var(--background)",
+              color: "var(--foreground)"
             }}
           />
         </div>
@@ -138,17 +146,26 @@ function TaskForm() {
             width: "100%",
             padding: "10px",
             marginBottom: "10px",
-            backgroundColor: showChecklist ? "#e3f2fd" : "#fff",
-            color: "#1976d2",
-            border: "2px dashed #1976d2",
-            borderRadius: "5px",
+            backgroundColor: showChecklist ? "var(--accent)" : "var(--background)",
+            color: showChecklist ? "var(--accent-foreground)" : "var(--primary)",
+            border: "2px dashed var(--primary)",
+            borderRadius: "var(--radius)",
             fontSize: "15px",
             cursor: "pointer",
             fontWeight: "500",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            gap: "8px"
+            gap: "8px",
+            transition: "all 0.2s"
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.backgroundColor = "var(--accent)";
+            e.currentTarget.style.color = "var(--accent-foreground)";
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.backgroundColor = showChecklist ? "var(--accent)" : "var(--background)";
+            e.currentTarget.style.color = showChecklist ? "var(--accent-foreground)" : "var(--primary)";
           }}
         >
           {showChecklist ? "Checkliste ausblenden" : "Checkliste hinzufügen"}
@@ -157,13 +174,13 @@ function TaskForm() {
         {/* Checkliste Bereich */}
         {showChecklist && (
           <div style={{
-            backgroundColor: "#fff",
-            border: "1px solid #ddd",
-            borderRadius: "8px",
+            backgroundColor: "var(--background)",
+            border: "1px solid var(--border)",
+            borderRadius: "var(--radius)",
             padding: "15px",
             marginBottom: "15px"
           }}>
-            <div style={{ fontWeight: "500", marginBottom: "10px", color: "#333" }}>
+            <div style={{ fontWeight: "500", marginBottom: "10px", color: "var(--foreground)" }}>
               Checkliste
             </div>
 
@@ -176,19 +193,19 @@ function TaskForm() {
                   alignItems: "center",
                   gap: "10px",
                   padding: "8px 12px",
-                  backgroundColor: "#f9f9f9",
-                  borderRadius: "5px",
+                  backgroundColor: "var(--muted)",
+                  borderRadius: "var(--radius)",
                   marginBottom: "8px"
                 }}
               >
-                <span style={{ flex: 1 }}>□ {item}</span>
+                <span style={{ flex: 1, color: "var(--foreground)" }}>□ {item}</span>
                 <button
                   type="button"
                   onClick={() => removeChecklistItem(index)}
                   style={{
                     backgroundColor: "transparent",
                     border: "none",
-                    color: "#f44336",
+                    color: "var(--destructive)",
                     cursor: "pointer",
                     fontSize: "18px",
                     padding: "0 5px"
@@ -209,9 +226,11 @@ function TaskForm() {
                 style={{
                   flex: 1,
                   padding: "10px",
-                  border: "1px solid #ddd",
-                  borderRadius: "5px",
-                  fontSize: "15px"
+                  border: "1px solid var(--border)",
+                  borderRadius: "var(--radius)",
+                  fontSize: "15px",
+                  backgroundColor: "var(--card)",
+                  color: "var(--foreground)"
                 }}
               />
               <button
@@ -219,13 +238,23 @@ function TaskForm() {
                 onClick={addChecklistItem}
                 style={{
                   padding: "10px 20px",
-                  backgroundColor: "#1976d2",
-                  color: "white",
+                  backgroundColor: "var(--primary)",
+                  color: "var(--primary-foreground)",
                   border: "none",
-                  borderRadius: "5px",
+                  borderRadius: "var(--radius)",
                   fontSize: "20px",
                   cursor: "pointer",
-                  minWidth: "50px"
+                  minWidth: "50px",
+                  boxShadow: "var(--shadow-sm)",
+                  transition: "all 0.2s"
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.transform = "scale(1.05)";
+                  e.currentTarget.style.boxShadow = "var(--shadow-md)";
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.transform = "scale(1)";
+                  e.currentTarget.style.boxShadow = "var(--shadow-sm)";
                 }}
               >
                 +
@@ -239,13 +268,21 @@ function TaskForm() {
           style={{
             width: "100%",
             padding: "14px",
-            backgroundColor: "#4CAF50",
-            color: "white",
+            backgroundColor: "var(--success)",
+            color: "var(--primary-foreground)",
             border: "none",
-            borderRadius: "5px",
+            borderRadius: "var(--radius)",
             fontSize: "16px",
             fontWeight: "bold",
-            cursor: "pointer"
+            cursor: "pointer",
+            boxShadow: "var(--shadow-md)",
+            transition: "all 0.2s"
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.opacity = "0.75";
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.opacity = "1";
           }}
         >
           ✓ Task hinzufügen
@@ -256,11 +293,12 @@ function TaskForm() {
         <div style={{
           marginTop: "15px",
           padding: "10px",
-          backgroundColor: message.includes("✅") ? "#e8f5e9" : "#fff3cd",
-          color: message.includes("✅") ? "#2e7d32" : "#856404",
-          borderRadius: "5px",
+          backgroundColor: message.includes("✓") ? "var(--success)" : "var(--warning)",
+          color: "var(--primary-foreground)",
+          borderRadius: "var(--radius)",
           textAlign: "center",
-          fontWeight: "500"
+          fontWeight: "500",
+          boxShadow: "var(--shadow-sm)"
         }}>
           {message}
         </div>

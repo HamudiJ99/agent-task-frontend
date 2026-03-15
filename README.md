@@ -2,7 +2,12 @@
 
 A modern, user-friendly task management application built with React and Vite. Manage your tasks in a clean and simple interface with support for checklists, deadlines, and more.
 
+<details>
+   <summary>Show project preview</summary>
+
 ![Agent Task Preview](./public/image.png)
+
+</details>
 
 ## Features
 
